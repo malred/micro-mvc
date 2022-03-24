@@ -2,6 +2,7 @@ package com.malred.micro_mvc.Handler.adapter;
 
 import com.malred.micro_mvc.Handler.RequestMappingInfo;
 import com.malred.micro_mvc.RequestParam;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import java.util.Map;
  * @author malguy-wang sir
  * @create ---
  */
+@Component
 public class AnnotationHandlerAdapter implements handlerAdapter{
     @Override
     public boolean support(Object handler) {

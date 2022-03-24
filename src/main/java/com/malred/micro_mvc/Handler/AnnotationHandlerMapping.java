@@ -2,6 +2,7 @@ package com.malred.micro_mvc.Handler;
 
 import com.malred.micro_mvc.RequestMapping;
 import org.springframework.beans.BeansException;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import java.util.Map;
  * @author malguy-wang sir
  * @create ---
  */
+@Component
 public class AnnotationHandlerMapping implements HandlerMapping{
     private Map<String,RequestMappingInfo> map = new HashMap<>();
     @Override

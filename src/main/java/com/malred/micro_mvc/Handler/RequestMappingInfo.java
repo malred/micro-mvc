@@ -1,11 +1,14 @@
 package com.malred.micro_mvc.Handler;
 
+import org.springframework.stereotype.Component;
+
 import java.lang.reflect.Method;
 
 /**
  * @author malguy-wang sir
  * @create ---
  */
+@Component
 public class RequestMappingInfo {
     private String url;
     private Object obj;//处理url的bean

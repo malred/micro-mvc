@@ -1,6 +1,7 @@
 package com.malred.micro_mvc;
 
 import com.malred.micro_mvc.Handler.HandlerMapping;
+import com.malred.micro_mvc.Handler.RequestMappingInfo;
 import com.malred.micro_mvc.Handler.adapter.handlerAdapter;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -22,6 +23,7 @@ import java.util.Map;
 public class servlet extends HttpServlet {
     private String contextConfig;
     private Collection<HandlerMapping> handlerMappings;
+    private Collection<handlerAdapter> handlerAdapters;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Object handler = getHandlerMapping(req);
@@ -45,6 +47,9 @@ public class servlet extends HttpServlet {
         //获取映射器集合
         Map<String, HandlerMapping> handlerMappingMap = context.getBeansOfType(HandlerMapping.class);
         handlerMappings = handlerMappingMap.values();//返回此map中包含的值的集合视图
+        //获取适配器集合
+        Map<String, handlerAdapter> handlerAdapterMap = context.getBeansOfType(handlerAdapter.class);
+        handlerAdapters = handlerAdapterMap.values();//返回此map中包含的值的集合视图
     }
     //获取映射器
     private Object getHandlerMapping(HttpServletRequest req){
@@ -57,14 +62,16 @@ public class servlet extends HttpServlet {
         }
         return null;
     }
-    private Collection<handlerAdapter> handlerAdapters;
     //获取适配器
     private handlerAdapter getHandlerAdapter(Object handler){
         if(handlerAdapters!=null){
             for (handlerAdapter adapter : handlerAdapters) {
                 //是否支持
                 boolean support = adapter.support(handler);
-                if(support) return adapter;
+                if(support){
+//                    Object obj = ((RequestMappingInfo) handler).getObj();
+                    return adapter;
+                }
             }
         }
         return null;
